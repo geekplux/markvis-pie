@@ -67,7 +67,7 @@ function pie ({
         .sort(null)
         .value((d) => d.value);
 
-  const margin = _width / 2 * 0.1 + _radius;
+  const margin = _width / 2;
   const g = svg.attr('width', _width)
     .attr('height', _width)
     .append('g')
