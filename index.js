@@ -24,9 +24,8 @@ function pie ({
     </div>
   `,
   style: _style = '',
-  width: _width = 960,
-  height: _height = 500,
-  radius: _radius = 200,
+  width: _width = 400,
+  radius: _radius = _width / 2 * 0.9,
   export: _export = false,
 } = {}) {
   const _svgStyles = `
@@ -68,10 +67,11 @@ function pie ({
         .sort(null)
         .value((d) => d.value);
 
+  const margin = _width / 2 * 0.1 + _radius;
   const g = svg.attr('width', _width)
-    .attr('height', _height)
+    .attr('height', _width)
     .append('g')
-    .attr('transform', `translate( ${_radius} , ${_radius} )`);
+    .attr('transform', `translate(${margin}, ${margin})`);
 
   const gArc = g
         .selectAll('.arc')
