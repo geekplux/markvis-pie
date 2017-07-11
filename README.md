@@ -17,7 +17,7 @@ yarn add markvis-pie --save
 ## Usage
 
 ```js
-const markvisPie = require('markvis-pie);
+const markvisPie = require('markvis-pie');
 const pie = markvisPie({ data, d3, d3node })
 ```
 
