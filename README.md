@@ -1,6 +1,8 @@
 ## PieChart
 
-PieChart generator for [markvis](https://github.com/geekplux/markvis) in browser and node.js.
+> Pie chart generator for [markvis](https://github.com/geekplux/markvis) in browser and node.js.
+
+[![NPM version](https://img.shields.io/npm/v/markvis-pie.svg?style=flat-square)](https://npmjs.com/package/markvis-pie) [![NPM downloads](https://img.shields.io/npm/dm/markvis-pie.svg?style=flat-square)](https://npmjs.com/package/markvis-pie) [![Build](https://travis-ci.org/geekplux/markvis-pie.svg?style=flat-square)](https://travis-ci.org/geekplux/markvis-pie) [![Coverage](https://coveralls.io/repos/github/geekplux/markvis-pie/badge.svg?style=flat-square)](https://coveralls.io/github/geekplux/markvis-pie) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://geekplux.github.io/donate)
 
 ## Install
 
@@ -21,13 +23,13 @@ const pie = markvisPie({ data, d3, d3node })
 
 Check out the [example](./example) for usage.
 
-##### Output the visualization result to a image
+#### Output the visualization result to a image
 
 ```
-npm run build
+npm run example
 ```
 
-## Output Preview (png):
+#### Output Preview (png):
 
 ![chart](./example/output.png)
 
@@ -47,13 +49,13 @@ Data from file or web processed by d3 library.
 
 - Type: `Object`
 
-`d3` library which used in **browser** environment.
+[d3](https://github.com/d3/d3) library which used in **browser** environment.
 
 ##### d3node
 
 - Type: `Object`
 
-`d3-node` library which used in **node** environment.
+[d3-node](https://github.com/d3-node/d3-node) constructor which used in **node** environment.
 
 ##### selector
 
@@ -67,7 +69,7 @@ DOM selector in container.
 - Type: `String`
 - Default: `<div id="container"><h2>Pie Chart</h2><div id="chart"></div></div>`
 
-DOM contain the visualization result.
+DOM contained the visualization result.
 
 ##### style
 
@@ -82,7 +84,29 @@ DOM contain the visualization result.
    stroke: #fff;
  }
 ```
-PieChart style.
+Pie chart style.
+
+##### width
+
+- Type: `Number`<br>
+- Default: `960`
+
+SVG width for pie chart.
+
+##### radius
+
+- Type: `Number`<br>
+- Default: `width / 2 * 0.9`
+
+Radius for pie chart.
+
+##### export
+
+- Type: `boolean`<br>
+- Default: `false`
+
+Whether to export to a PNG image.
+
 
 ## Contributing
 
@@ -98,4 +122,4 @@ PieChart style.
 **markvis-pie** © [geekplux](https://github.com/geekplux), Released under the [MIT](./LICENSE) License.<br>
 Authored and maintained by geekplux with help from contributors ([list](https://github.com/geekplux/markvis/contributors)).
 
-> [github.com/geekplux](https://github.com/geekplux) · GitHub [@geekplux](https://github.com/geekplux) · Twitter [@geekplux](https://twitter.com/geekplux)
+> [geekplux.com](http://geekplux.com) · GitHub [@geekplux](https://github.com/geekplux) · Twitter [@geekplux](https://twitter.com/geekplux)
