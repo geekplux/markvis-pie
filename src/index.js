@@ -1,21 +1,28 @@
-function addStyle (css) {
-  const head = document.head || document.getElementsByTagName('head')[0];
-  const style = document.createElement('style');
+/**
+ * @fileOverview Generate pie chart for markvis
+ * @name index.js<src>
+ * @author GeekPlux
+ * @license MIT
+ */
+const { addStyle } = require('./utils')
 
-  style.type = 'text/css';
-  if (style.styleSheet){
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-
-  head.appendChild(style);
-}
-
+/**
+ * Pie chart generator
+ * @param {array} data
+ * @param {object} d3 d3 will get in browser environment
+ * @param {function} D3Node D3Node will get in node environment
+ * @param {string} selector DOM selector in container
+ * @param {string} container DOM contained the visualization result
+ * @param {string} style Pie chart style
+ * @param {number} width
+ * @param {number} radius
+ * @param {boolean} export Whether to export to a PNG image
+ * @returns {}
+ */
 function pie ({
   data,
   d3,
-  d3node,
+  d3node: D3Node,
   selector: _selector = '#chart',
   container: _container = `
     <div id="container">
@@ -26,76 +33,80 @@ function pie ({
   style: _style = '',
   width: _width = 400,
   radius: _radius = _width / 2 * 0.9,
-  export: _export = false,
+  export: _export = false
 } = {}) {
   const _svgStyles = `
-    .arc text {font: 10px sans-serif; text-anchor: middle;}
-    .arc path {stroke: #fff;}
-  ` + _style;
+    .arc text { font: 10px sans-serif; text-anchor: middle; }
+    .arc path { stroke: #fff; }
+  ` + _style
 
-  let _d3;
-  let d3n;
-  let svg;
-  let _div;
+  let _d3 // Instance of d3
+  let d3n // Instance of D3Node
+  let svg // SVG element held the pie chart
+  let _div // Temporary DOM element used to operate
 
-  if (d3node) {
-    d3n = new d3node({
+  const isNodeEnv = () => D3Node // To check node environment
+
+  if (isNodeEnv) {
+    d3n = new D3Node({
+      // Node environment
       selector: _selector,
       styles: _svgStyles,
       container: _container
-    });
-    _d3 = d3n.d3;
-    svg = d3n.createSVG();
+    })
+    _d3 = d3n.d3
+    svg = d3n.createSVG()
   } else {
-    _div = document.createElement('div');
-    _div.innerHTML = _container;
-    _d3 = d3;
-    svg = _d3.select(_div).select('#chart').append('svg');
-    addStyle(_style);
+    // Browser environment
+    _div = document.createElement('div')
+    _div.innerHTML = _container
+    _d3 = d3
+    svg = _d3.select(_div).select('#chart').append('svg')
+    addStyle(_svgStyles) // Add style for pie chart in browser
   }
 
-  const color = _d3.scaleOrdinal(_d3.schemeCategory20b);
+  const color = _d3.scaleOrdinal(_d3.schemeCategory20b)
   const arc = _d3.arc()
         .outerRadius(_radius - 10)
-        .innerRadius(0);
+        .innerRadius(0)
 
   const labelArc = _d3.arc()
         .outerRadius(_radius - 40)
-        .innerRadius(_radius - 40);
+        .innerRadius(_radius - 40)
 
   const pie = _d3.pie()
         .sort(null)
-        .value((d) => d.value);
+        .value(d => d.value)
 
-  const margin = _width / 2;
+  const margin = _width / 2
   const g = svg.attr('width', _width)
     .attr('height', _width)
     .append('g')
-    .attr('transform', `translate(${margin}, ${margin})`);
+    .attr('transform', `translate(${margin}, ${margin})`)
 
   const gArc = g
         .selectAll('.arc')
         .data(pie(data))
         .enter()
         .append('g')
-        .attr('class', 'arc');
+        .attr('class', 'arc')
 
   gArc.append('path')
     .attr('d', arc)
-    .style('fill', (d) => color(d.data.key));
+    .style('fill', d => color(d.data.key))
 
   gArc.append('text')
-    .attr('transform', (d) => `translate(${labelArc.centroid(d)})`)
+    .attr('transform', d => `translate(${labelArc.centroid(d)})`)
     .attr('dy', '.35em')
-    .text((d) => d.data.key);
+    .text(d => d.data.key)
 
-  let result;
-  if (d3node) {
-    if (_export) result = d3n;
-    else result = d3n.chartHTML();
-  } else result = _div.querySelector('#container').innerHTML;
+  let result
+  if (isNodeEnv) {
+    if (_export) result = d3n
+    else result = d3n.chartHTML()
+  } else result = _div.querySelector('#container').innerHTML
 
-  return result;
+  return result
 }
 
-module.exports = pie;
+module.exports = pie
