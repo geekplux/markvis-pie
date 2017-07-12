@@ -47,7 +47,7 @@ function pie ({
 
   const isNodeEnv = () => D3Node // To check node environment
 
-  if (isNodeEnv) {
+  if (isNodeEnv()) {
     d3n = new D3Node({
       // Node environment
       selector: _selector,
@@ -101,7 +101,7 @@ function pie ({
     .text(d => d.data.key)
 
   let result
-  if (isNodeEnv) {
+  if (isNodeEnv()) {
     if (_export) result = d3n
     else result = d3n.chartHTML()
   } else result = _div.querySelector('#container').innerHTML
