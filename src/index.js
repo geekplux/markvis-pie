@@ -33,6 +33,7 @@ function pie ({
   style: _style = '',
   width: _width = 400,
   radius: _radius = _width / 2 * 0.9,
+  colors,
   export: _export = false
 } = {}) {
   const _svgStyles = `
@@ -65,7 +66,7 @@ function pie ({
     addStyle(_svgStyles) // Add style for pie chart in browser
   }
 
-  const color = _d3.scaleOrdinal(_d3.schemeCategory20b)
+  const color = _d3.scaleOrdinal(colors || _d3.schemeCategory10)
   const arc = _d3.arc()
         .outerRadius(_radius - 10)
         .innerRadius(0)
