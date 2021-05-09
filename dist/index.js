@@ -24,6 +24,7 @@ function pie() {
       _width = _ref$width === undefined ? 400 : _ref$width,
       _ref$radius = _ref.radius,
       _radius = _ref$radius === undefined ? _width / 2 * 0.9 : _ref$radius,
+      colors = _ref.colors,
       _ref$export = _ref.export,
       _export = _ref$export === undefined ? false : _ref$export;
 
@@ -54,7 +55,7 @@ function pie() {
     addStyle(_svgStyles);
   }
 
-  var color = _d3.scaleOrdinal(_d3.schemeCategory20b);
+  var color = _d3.scaleOrdinal(colors || _d3.schemeCategory10);
   var arc = _d3.arc().outerRadius(_radius - 10).innerRadius(0);
 
   var labelArc = _d3.arc().outerRadius(_radius - 40).innerRadius(_radius - 40);
