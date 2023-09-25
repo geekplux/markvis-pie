@@ -34,7 +34,7 @@
     "d3node-output": "^1.0.3",
     "eslint-config-geekplux": "^1.0.3",
     "jest": "^26.6.3",
-    "xo": "^0.18.2"
+    "xo": "^0.53.1"
   },
   "xo": {
     "extends": "geekplux",
